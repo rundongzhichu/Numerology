@@ -2,6 +2,13 @@ spring:
  application:
   name: Numerology
 
+# mvc:
+#  static-path-pattern: /*
+#
+# web:
+#  resources:
+#   static-locations: classpatn:/numerology/build/
+
  #数据源的配置
  datasource:
   driver-class-name: com.mysql.cj.jdbc.Driver
@@ -15,3 +22,4 @@ spring:
   mapper-locations: classpath:mapper/*.xml
   configuration:
    map-underscore-to-camel-case: on
+

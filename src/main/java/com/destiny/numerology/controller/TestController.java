@@ -7,13 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(value = "/destiny/test")
 public class TestController {
 
     @GetMapping(value = "/hello/{name}")
     @ResponseBody
     public String hello(@PathVariable(value = "name") String name){
         return "Hello " + name;
+    }
+
+    @GetMapping("/")
+    public String home() {
+        return "index";
     }
 
 }
