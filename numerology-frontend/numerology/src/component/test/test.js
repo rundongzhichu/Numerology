@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../../resource/logo.svg';
 import './test.css';
 
 class Test extends React.Component {
