@@ -1,5 +1,6 @@
 import React from 'react';
-import logo from "../../resource/logo.svg";
+
+import logo from '../../assets/logo.svg';
 import './App.css';
 import Test from '../test/test';
 
@@ -7,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img  className="App-logo" alt="logo" />
+        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>

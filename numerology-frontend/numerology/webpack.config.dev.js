@@ -2,7 +2,9 @@ const path = require('path');  // node 的path路径对象
 const htmlPlugin = require("html-webpack-plugin");
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const copyWebpackPlugin = require('copy-webpack-plugin');
+const interpolateHtmlPlugin = require("interpolate-html-plugin");
 
 
 module.exports = {
@@ -17,7 +19,7 @@ module.exports = {
   devServer: {
     port: '3000',
     static: {
-      directory: path.join(__dirname, 'dist')
+      directory: path.join(__dirname, 'dist'),
     },
     compress: true,
     hot: true,
@@ -30,19 +32,27 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: "./public/index.html",
+      template: "./src/template/index.html",
       filename: "index.html",
+      favicon: "./public/favicon.ico"
     }),
-    // 把public中的文件复制到dist文件中
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css'
+    }),
+    new interpolateHtmlPlugin({
+      PUBLIC_URL: './assets' 
+    }),
     // new copyWebpackPlugin({
     //   patterns: [
-    //       {
-    //         // 从public中复制文件
-    //           from: path.resolve(__dirname,'public'),
-    //         // 把复制的文件存放到dis里面
-    //           to: path.resolve(__dirname,'dist')
-    //       }
-    //     ],
+    //     {
+    //       from: path.resolve(__dirname, "public"),  // 拷贝来源
+    //       to: path.resolve(__dirname, "dist"), // 拷贝到的位置
+    //       toType: "dir",  // 目录dir、文件file或模板template
+    //     }
+    //   ],
+    //   options: {
+    //     concurrency: 100,   // 同时请求fs的数量限制
+    //   }
     // })
   ],
   module: {
@@ -51,31 +61,50 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
+        use: {
+          loader:'babel-loader',
+        }
       },
       // 处理less
       {
         test: /\.less$/,
         exclude: /node_modules/,
         use: {
-          loader: 'less-loader'
+          loader: 'less-loader',
         }
       },
       // 处理css
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'css-loader'
-        }
+
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          'css-loader'
+        ]
+        
       },
       // 处理svg
       {
         test: /\.svg$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'react-svg-loader'
-        }
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgo: false,
+            },
+          },
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[hash:8].[ext]',
+              outputPath: 'svg',
+            },
+          },
+        ],
       },
       // 处理html
       {
