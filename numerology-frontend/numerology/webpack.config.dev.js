@@ -32,28 +32,28 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: "./src/template/index.html",
+      template: "./public/index.html",
       filename: "index.html",
-      favicon: "./public/favicon.ico"
+      favicon: "./public/assets/favicon.ico"
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css'
     }),
     new interpolateHtmlPlugin({
-      PUBLIC_URL: './assets' 
+      PUBLIC_URL: '.' 
     }),
-    // new copyWebpackPlugin({
-    //   patterns: [
-    //     {
-    //       from: path.resolve(__dirname, "public"),  // 拷贝来源
-    //       to: path.resolve(__dirname, "dist"), // 拷贝到的位置
-    //       toType: "dir",  // 目录dir、文件file或模板template
-    //     }
-    //   ],
-    //   options: {
-    //     concurrency: 100,   // 同时请求fs的数量限制
-    //   }
-    // })
+    new copyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "public/assets"),  // 拷贝来源
+          to: path.resolve(__dirname, "dist/assets"), // 拷贝到的位置
+          toType: "dir",  // 目录dir、文件file或模板template
+        }
+      ],
+      options: {
+        concurrency: 100,   // 同时请求fs的数量限制
+      }
+    })
   ],
   module: {
     rules: [
@@ -113,6 +113,19 @@ module.exports = {
         use: {
           loader: 'html-loader'
         }
+      },
+      // 处理文本和图片资源
+      {
+        test: /\.(png|jpe?g|gif|txt)$/i,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
       }
     ]
   }
