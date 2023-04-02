@@ -26,6 +26,9 @@ module.exports = {
     proxy: {
         '/hello': {
             target: 'http://localhost:8080'
+        },
+        '/delegator': {
+            target: 'http://localhost:8080'
         }
     }
   },
