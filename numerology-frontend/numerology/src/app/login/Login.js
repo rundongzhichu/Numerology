@@ -1,53 +1,45 @@
-import React from 'react';
-import { Form,  Input, Button } from 'antd';
+import React, { createRef } from 'react';
+import axios from 'axios';
 
-function LoginForm(props) {
+class Login extends React.Component {
 
-  const { getFieldDecorator } = props.form;
+  usernameRef = createRef();
+  passwordRef = createRef();
 
-  const handleSubmit = e => {
+  handleSubmit(e) {
     e.preventDefault();
-    props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  };
+    const username = this.usernameRef.current.value;
+    const password = this.passwordRef.current.value;
+    console.log("username: " + username + "   password: " + password)
+    
+    axios({
+        headers: {
+          'Content-Type':'application/json'
+        },
+        method: 'POST',
+        url: '/delegator/login',
+        data: {
+          username: username,
+          password: password
+        }
+      }).then(response => {
+        alert(response.data.code + " : " + response.data.msg);
+      });
+  }
 
-  return (
-    <Form onSubmit={handleSubmit} className="login-form">
-      <Form.Item>
-        {
-            getFieldDecorator('username', {
-            rules: [{ required: true, message: 'Please input your username!' }],
-            })(
-            <Input
-                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder="Username"
-            />,
-            )
-        }
-      </Form.Item>
-      <Form.Item>
-        {
-            getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }],
-            })(
-            <Input
-                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                type="password"
-                placeholder="Password"
-            />,
-            )
-        }
-      </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
-          Log in
-        </Button>
-      </Form.Item>
-    </Form>
-  );
+  render() {
+    return (
+      <div>
+        <h1>Login Form</h1>
+        <form>
+          <input ref={this.usernameRef} type='text' placeholder='username'/>
+          <input ref={this.passwordRef} type='password' placeholder='password'/>
+          <input onClick={this.handleSubmit.bind(this)} type='button' value='submit'/>
+        </form>
+      </div>
+    );
+  }
+
 }
 
-export default Form.create({ name: 'login_form' })(LoginForm);
+export default Login;
