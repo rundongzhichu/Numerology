@@ -2,13 +2,6 @@ spring:
  application:
   name: Numerology
 
-# mvc:
-#  static-path-pattern: /*
-#
-# web:
-#  resources:
-#   static-locations: classpatn:/numerology/build/
-
  #数据源的配置
  datasource:
   driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,10 +9,10 @@ spring:
   password: 123456
   username: root
 
- #mybatis的配置
- mybatis:
-  type-aliases-package: numerology.server
-  mapper-locations: classpath:mapper/*.xml
-  configuration:
-   map-underscore-to-camel-case: on
+#mybatis的配置
+mybatis:
+ type-aliases-package: com.destiny.numerology.model
+ mapper-locations: classpath:mapper/*Dao.xml
+ configuration:
+  map-underscore-to-camel-case: on
 

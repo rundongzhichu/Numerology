@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.destiny.numerology.dao.UserDao">
+    <resultMap id="user" type="com.destiny.numerology.model.User">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+    </resultMap>
+
+    <insert id="createUser" parameterType="com.destiny.numerology.model.User">
+        insert into user(id, username, password)
+        values(#{id}, #{username}, #{password})
+    </insert>
+</mapper>
