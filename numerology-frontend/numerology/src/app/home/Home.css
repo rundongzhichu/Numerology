@@ -1,0 +1,28 @@
+.Home {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+.Home-leftPanel {
+    width: 15%;
+    height: 100%;
+}
+
+.Home-rightPanel {
+    width: 100%;
+    height: 100%;
+}
+
+.Home-rightPanel-subject {
+    width: 100%;
+    margin: 5px 5px 5px 5px;
+    height: 60px;
+    border: 2px solid black;
+    text-align: center;
+    line-height: 60px;
+    color: brown;
+    font-size: 40px;
+}

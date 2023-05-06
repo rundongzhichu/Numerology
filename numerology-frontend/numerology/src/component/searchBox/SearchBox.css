@@ -1,0 +1,14 @@
+.SearchBox {
+    display:flex;
+    flex: row;
+    width: 100%;
+    height: 30px;
+}
+
+.SearchBox input {
+    width: 80%;
+} 
+
+.SearchBox button {
+    width: 20%;
+} 
