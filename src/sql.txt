@@ -1,0 +1,8 @@
+create table `user`(
+    `id` int(20) unsigned not null auto_increment comment 'user id',
+    `username` varchar(20) not null comment 'username',
+    `password` varchar(10) not null comment 'password',
+    primary key (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+insert into user (username, password) values ('ssc', '123456');
