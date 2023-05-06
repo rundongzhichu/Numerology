@@ -1,5 +1,6 @@
 import React, { createRef } from 'react';
 import axios from 'axios';
+import "./Login.css";
 
 class Login extends React.Component {
 
@@ -29,12 +30,12 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Login Form</h1>
+      <div className='Login'>
         <form>
+          <h2>Welcome Login</h2>
           <input ref={this.usernameRef} type='text' placeholder='username'/>
           <input ref={this.passwordRef} type='password' placeholder='password'/>
-          <input onClick={this.handleSubmit.bind(this)} type='button' value='submit'/>
+          <button onClick={this.handleSubmit.bind(this)}>submit</button>
         </form>
       </div>
     );
